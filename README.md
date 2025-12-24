@@ -23,8 +23,8 @@
 
 <img width="437" height="191" alt="螢幕擷取畫面 2025-12-24 173403" src="https://github.com/user-attachments/assets/493b9271-0175-4c5f-90e0-f7258cb5f3ad" /><img width="629" height="134" alt="螢幕擷取畫面 2025-12-24 173426" src="https://github.com/user-attachments/assets/0c61e525-2b1e-465f-bd66-ccc5af5d789f" /><img width="426" height="317" alt="螢幕擷取畫面 2025-12-24 173445" src="https://github.com/user-attachments/assets/96cce214-287d-4760-875a-084d760f43e7" /><img width="622" height="239" alt="螢幕擷取畫面 2025-12-24 173356" src="https://github.com/user-attachments/assets/5cf1b892-252f-4283-81fa-a3d072ddfefc"/>
 
-接著，程式會自動判斷變數有哪些，並逐一詢問對應的實驗數據，然後問數據的儀器測量精度。如果是物理常數，像是重力常數氣體常數等等，請在儀器經度輸入0或C。
-最後就會輸出最佳值、合成讀確定度和最終的結果。
+接著，程式會自動判斷變數有哪些，並逐一詢問對應的實驗數據，然後問數據的儀器測量精度。如果是物理常數，像是重力常數氣體常數等等，就在儀器經度輸入0或C。
+最後就會輸出最佳值、合成不確定度和最終的結果。
 ## 3 程式的架構
 開頭的公式辨認變數是利用‵sp.sympify().free_symbols‵將字串轉為數學物件後，抓出裡面的變數，回傳一個set。
 接著打set轉為字串的list套入for迴圈，讓使用者輸入變數的實驗數據。
