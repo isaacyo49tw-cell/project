@@ -32,9 +32,9 @@
 a類不確定度可以用np.std計算標準差後再除以根號n，b類不確定度就只是簡單的計算了。
 物理常數的判斷可以簡單的用if else來解決。
 計算好的平均值和不確定度用dictionnary來紀錄，方便後續計算。
-最佳值可以用前面‵formula=sp.sympify()‵換好的公式數學物件，再用dictionary代入，‵best_value=formula.subs(value_maps).evalf()‵就能得到了。evalf()則是確保計算精度。
-不確定度的傳遞可以利用‵for var_symbol in value_map.keys:‵套入for迴圈，利用‵sp.diff(formula,var_symbol)‵將各項的偏微分計算出來，再把前面各項平均值代入偏微分結果，乘上原不確定度‵term=(partial_diff.subs(value_maps).evalf()*uncertainties_maps[var_symbols])**2‵。
-最後把數值append在一個list裡面，用‵sp.sqrt(sum(variance_terms)).evalf()‵就能把所有的所有數值加總後開根號，得到最終的不確定度。
+最佳值可以用前面`formula=sp.sympify()`換好的公式數學物件，再用dictionary代入，`best_value=formula.subs(value_maps).evalf()`就能得到了。evalf()則是確保計算精度。
+不確定度的傳遞可以利用`for var_symbol in value_map.keys:`套入for迴圈，利用`sp.diff(formula,var_symbol)`將各項的偏微分計算出來，再把前面各項平均值代入偏微分結果，乘上原不確定度`term=(partial_diff.subs(value_maps).evalf()*uncertainties_maps[var_symbols])**2`。
+最後把數值append在一個list裡面，用`sp.sqrt(sum(variance_terms)).evalf()`就能把所有的所有數值加總後開根號，得到最終的不確定度。
 ## 4 開發過程
 過程中遇到的最大困難，當然就是目前學到的程式根本就沒有學到偏微分(其實連微積分課程都還沒遇到)，所以我在最一開始就先問了gemini，請他先給我一個基礎，能幫我處理我不太會的地方；剩下的就照自己的需求慢慢磨。
 最一開始他給我的版本沒有處理a類不確定度，我就用splitz分開轉浮點數轉np.array，就很方便處理了。
