@@ -3,6 +3,7 @@
 * **姓名：** 陳宥昕
 * **學號：** B14504116
 ## 1 程式的原理與功能
+此python程式需要用到sympy與numoy插件。
 這個程式的功能，是在幫助處理物理實驗裡面麻煩的大量數據分析，可以把數字輸入後自動輸出結果，但局限於所求的數值是實驗測量值之間加減乘除後得到的結果，像是克特-可倒擺。
 程式需要用到兩個插件，numpy跟scipy
 我們需要先輸入公式，接著辨認公式中的變數，以利後續的計算
@@ -14,18 +15,46 @@
 所以我們必須計算各個變數在原函數偏微分後的結果，再將其函數值(也就是前面的平均值)和不確定度代入後，平方相加後開根號便能得到總的不確定度。
 最後再把數值輸出就可以了。
 ## 2 使用方式
-一開始需要用python的語法把所球的公式輸入。舉例來說，($\frac{4\pi^2}{P^2}(l_1+l_2)$)就要打`4*pi**2/(P**2*(l1+l2)`。
-
-多個變數各自的平均值和不確定度可用歉面分離出的變數，套入for迴圈並利用dictionary將各自的數值紀錄起來。
-<img width="437" height="191" alt="螢幕擷取畫面 2025-12-24 173403" src="https://github.com/user-attachments/assets/493b9271-0175-4c5f-90e0-f7258cb5f3ad" /><img width="629" height="134" alt="螢幕擷取畫面 2025-12-24 173426" src="https://github.com/user-attachments/assets/0c61e525-2b1e-465f-bd66-ccc5af5d789f" /><img width="426" height="317" alt="螢幕擷取畫面 2025-12-24 173445" src="https://github.com/user-attachments/assets/96cce214-287d-4760-875a-084d760f43e7" /><img width="622" height="239" alt="螢幕擷取畫面 2025-12-24 173356" src="https://github.com/user-attachments/assets/5cf1b892-252f-4283-81fa-a3d072ddfefc" />
-
-
-
-/>
-
-
-
+一開始需要用python的語法把所球的公式輸入。舉例來說，就要打`"4*pi**2/(P**2*(l1+l2)"`。
+這邊放幾張圖供參考:
+<img width="437" height="191" alt="螢幕擷取畫面 2025-12-24 173403" src="https://github.com/user-attachments/assets/493b9271-0175-4c5f-90e0-f7258cb5f3ad" /><img width="629" height="134" alt="螢幕擷取畫面 2025-12-24 173426" src="https://github.com/user-attachments/assets/0c61e525-2b1e-465f-bd66-ccc5af5d789f" /><img width="426" height="317" alt="螢幕擷取畫面 2025-12-24 173445" src="https://github.com/user-attachments/assets/96cce214-287d-4760-875a-084d760f43e7" /><img width="622" height="239" alt="螢幕擷取畫面 2025-12-24 173356" src="https://github.com/user-attachments/assets/5cf1b892-252f-4283-81fa-a3d072ddfefc"/>
+接著，程式會自動判斷變數有哪些，並逐一詢問對應的實驗數據，然後問數據的儀器測量精度。如果是物理常數，像是重力常數氣體常數等等，請在儀器經度輸入0或C。
+最後就會輸出最佳值、合成讀確定度和最終的結果。
 ## 3 程式的架構
+開頭的公式辨認變數是利用‵sp.sympify().free_symbols‵將字串轉為數學物件後，抓出裡面的變數，回傳一個set。
+接著打set轉為字串的list套入for迴圈，讓使用者輸入變數的實驗數據。
+實驗數據可以用split分開再轉為形式為浮點數的np.array，就能進行數學計算。
+a類不確定度可以用np.std計算標準差後再除以根號n，b類不確定度就只是簡單的計算了。
+物理常數的判斷可以簡單的用if else來解決。
+計算好的平均值和不確定度用dictionnary來紀錄，方便後續計算。
+最佳值可以用前面‵formula=sp.sympify()‵換好的公式數學物件，再用dictionary代入，‵best_value=formula.subs(value_maps).evalf()‵就能得到了。evalf()則是確保計算精度。
+不確定度的傳遞可以利用‵for var_symbol in value_map.keys:‵套入for迴圈，利用‵sp.diff(formula,var_symbol)‵將各項的偏微分計算出來，再把前面各項平均值代入偏微分結果，乘上原不確定度‵term=(partial_diff.subs(value_maps).evalf()*uncertainties_maps[var_symbols])**2‵。
+最後把數值append在一個list裡面，用‵sp.sqrt(sum(variance_terms)).evalf()‵就能把所有的所有數值加總後開根號，得到最終的不確定度。
 ## 4 開發過程
+過程中遇到的最大困難，當然就是目前學到的程式根本就沒有學到偏微分(其實連微積分課程都還沒遇到)，所以我在最一開始就先問了gemini
 ## 5 參考資料來源
 ## 6 程式修改或增強的內容
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
