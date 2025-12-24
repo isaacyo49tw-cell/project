@@ -15,7 +15,7 @@
 所以我們必須計算各個變數在原函數偏微分後的結果，再將其函數值(也就是前面的平均值)和不確定度代入後，平方相加後開根號便能得到總的不確定度。
 最後再把數值輸出就可以了。
 ## 2 使用說明
-一開始需要用python的語法把所求的公式輸入。舉例來說，如果公式是($\frac{4pi^2}{P^2}$)，就要打`"4*pi**2/(P**2*(l1+l2)"`。
+一開始需要用python的語法把所求的公式輸入。舉例來說，如果公式是($\frac{4\pi^2}{P^2}$)，就要打`"4*pi**2/(P**2*(l1+l2)"`。
 這邊放幾張圖供參考:
 <img width="437" height="191" alt="螢幕擷取畫面 2025-12-24 173403" src="https://github.com/user-attachments/assets/493b9271-0175-4c5f-90e0-f7258cb5f3ad" /><img width="629" height="134" alt="螢幕擷取畫面 2025-12-24 173426" src="https://github.com/user-attachments/assets/0c61e525-2b1e-465f-bd66-ccc5af5d789f" /><img width="426" height="317" alt="螢幕擷取畫面 2025-12-24 173445" src="https://github.com/user-attachments/assets/96cce214-287d-4760-875a-084d760f43e7" /><img width="622" height="239" alt="螢幕擷取畫面 2025-12-24 173356" src="https://github.com/user-attachments/assets/5cf1b892-252f-4283-81fa-a3d072ddfefc"/>
 接著，程式會自動判斷變數有哪些，並逐一詢問對應的實驗數據，然後問數據的儀器測量精度。如果是物理常數，像是重力常數氣體常數等等，請在儀器經度輸入0或C。
